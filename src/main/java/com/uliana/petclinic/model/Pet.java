@@ -1,4 +1,4 @@
-package com.uliana.petclinic.vao;
+package com.uliana.petclinic.model;
 
 import java.time.LocalDate;
 
@@ -8,6 +8,7 @@ public class Pet {
     private LocalDate birthDate;
     private String ownerName;
     private String notes;
+    private Long id;
 
     public Pet(){};
     public Pet(String name,String species,LocalDate birthDate,String ownerName,String  notes){
@@ -57,4 +58,15 @@ public class Pet {
     public void setNotes(String notes){
         this.notes=notes;
     }
+
+    public Long getId(){
+        return id;
+    }
+
+
+    public void setId(Long id){
+        this.id=id;
+    }
+
+
 }
