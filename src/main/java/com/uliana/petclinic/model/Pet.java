@@ -1,23 +1,39 @@
 package com.uliana.petclinic.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Pet {
+public class Pet implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
     private String name;
     private String species;
     private LocalDate birthDate;
     private String ownerName;
     private String notes;
-    private Long id;
+
 
     public Pet(){};
-    public Pet(String name,String species,LocalDate birthDate,String ownerName,String  notes){
+    public Pet(Long id,String name,String species,LocalDate birthDate,String ownerName,String  notes){
+        this.id=id;
         this.name=name;
         this.species=species;
         this.birthDate=birthDate;
         this.ownerName=ownerName;
         this.notes=notes;
     }
+
+    public Long getId(){
+        return id;
+    }
+
+
+    public void setId(Long id){
+        this.id=id;
+    }
+
     public String getName(){
         return name;
     }
@@ -59,14 +75,16 @@ public class Pet {
         this.notes=notes;
     }
 
-    public Long getId(){
-        return id;
-    }
-
-
-    public void setId(Long id){
-        this.id=id;
-    }
-
+@Override
+    public String toString(){
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name+'\'' +
+                ", species='" + species + '\'' +
+                ", birthDate=" + birthDate +
+                ", ownerName='" +ownerName + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
+}
 
 }
