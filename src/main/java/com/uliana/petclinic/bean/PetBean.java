@@ -30,7 +30,7 @@ public class PetBean implements Serializable {
     public String save() {
         petDao.create(pet);
         pet = new Pet();
-        return "list.xhtml?faces-redirect=true";
+        return "listView?faces-redirect=true";
     }
 
     public void loadPet() {
