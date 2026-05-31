@@ -7,5 +7,5 @@ public interface PetDao {
     List<Pet> findAll();
     Pet findById(Long id);
     void update(Pet pet);
-
+    void delete(Long id);
 }

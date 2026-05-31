@@ -18,9 +18,9 @@ public class InMemoryPetDao implements PetDao {
 
     @PostConstruct
     public void init() {
-        create(new Pet(null, "Milo", "Cat", LocalDate.of(2021,4,12), "Anna Novak", "Indoor cat. Likes calm visits."));
-        create(new Pet(null, "Rex", "Dog", LocalDate.of(2020,9,3), "Marko Kranjc", "Annual vaccination planned."));
-        create(new Pet(null, "Luna", "Rabbit", LocalDate.of(2022,1,20), "Eva Horvat", "Check teeth regularly."));
+        create(new Pet(null, "Milo", "Cat", LocalDate.of(2021, 4, 12), "Anna Novak", "Indoor cat. Likes calm visits."));
+        create(new Pet(null, "Rex", "Dog", LocalDate.of(2020, 9, 3), "Marko Kranjc", "Annual vaccination planned."));
+        create(new Pet(null, "Luna", "Rabbit", LocalDate.of(2022, 1, 20), "Eva Horvat", "Check teeth regularly."));
     }
 
     @Override
@@ -46,10 +46,10 @@ public class InMemoryPetDao implements PetDao {
     }
 
     @Override
-    public void update(Pet pet){
+    public void update(Pet pet) {
         Pet existingPet = findById(pet.getId());
 
-        if(existingPet!=null){
+        if (existingPet != null) {
             existingPet.setName(pet.getName());
             existingPet.setSpecies(pet.getSpecies());
             existingPet.setBirthDate(pet.getBirthDate());
@@ -57,4 +57,7 @@ public class InMemoryPetDao implements PetDao {
             existingPet.setNotes(pet.getNotes());
         }
     }
+
+    @Override
+    public void delete(Long id) { if(id!=null){pets.removeIf(pet ->id.equals(pet.getId()));}}
 }

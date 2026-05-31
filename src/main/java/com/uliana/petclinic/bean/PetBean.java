@@ -34,7 +34,7 @@ public class PetBean implements Serializable {
             petDao.update(pet);
         }
         pet = new Pet();
-        return "listView.?faces-redirect=true";
+        return "listView?faces-redirect=true";
     }
 
     public void loadPet() {
@@ -49,6 +49,12 @@ public class PetBean implements Serializable {
                         existing.getBirthDate(), existing.getOwnerName(), existing.getNotes());
             }
         }
+    }
+
+
+    public String delete(Long id) {
+        petDao.delete(id);
+        return "listView?faces-redirect=true";
     }
 
     public Pet getPet() {return pet;}
