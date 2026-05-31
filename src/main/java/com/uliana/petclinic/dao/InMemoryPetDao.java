@@ -44,4 +44,17 @@ public class InMemoryPetDao implements PetDao {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public void update(Pet pet){
+        Pet existingPet = findById(pet.getId());
+
+        if(existingPet!=null){
+            existingPet.setName(pet.getName());
+            existingPet.setSpecies(pet.getSpecies());
+            existingPet.setBirthDate(pet.getBirthDate());
+            existingPet.setOwnerName(pet.getOwnerName());
+            existingPet.setNotes(pet.getNotes());
+        }
+    }
 }

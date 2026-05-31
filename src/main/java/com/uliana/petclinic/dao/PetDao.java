@@ -6,4 +6,6 @@ public interface PetDao {
     void create(Pet pet);
     List<Pet> findAll();
     Pet findById(Long id);
+    void update(Pet pet);
+
 }

@@ -28,36 +28,33 @@ public class PetBean implements Serializable {
     }
 
     public String save() {
-        petDao.create(pet);
+        if (pet.getId() == null) {
+            petDao.create(pet);
+        } else {
+            petDao.update(pet);
+        }
         pet = new Pet();
-        return "listView?faces-redirect=true";
+        return "listView.?faces-redirect=true";
     }
 
     public void loadPet() {
         selectedPet = petDao.findById(id);
     }
 
-    public Pet getPet() {
-        return pet;
+    public void loadFormPet() {
+        if (id != null) {
+            Pet existing = petDao.findById(id);
+            if (existing != null) {
+                pet = new Pet(existing.getId(), existing.getName(), existing.getSpecies(),
+                        existing.getBirthDate(), existing.getOwnerName(), existing.getNotes());
+            }
+        }
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Pet getSelectedPet() {
-        return selectedPet;
-    }
-
-    public void setSelectedPet(Pet selectedPet) {
-        this.selectedPet = selectedPet;
-    }
+    public Pet getPet() {return pet;}
+    public void setPet(Pet pet) {this.pet = pet;}
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
+    public Pet getSelectedPet() {return selectedPet;}
+    public void setSelectedPet(Pet selectedPet) {this.selectedPet = selectedPet;}
 }
