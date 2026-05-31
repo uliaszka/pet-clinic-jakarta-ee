@@ -57,6 +57,10 @@ public class PetBean implements Serializable {
         return "listView?faces-redirect=true";
     }
 
+    public List<Pet> getFiltered(){
+         return petDao.filtered();
+    }
+
     public Pet getPet() {return pet;}
     public void setPet(Pet pet) {this.pet = pet;}
     public Long getId() {return id;}

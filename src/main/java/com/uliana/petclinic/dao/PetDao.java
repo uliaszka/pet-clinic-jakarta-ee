@@ -8,4 +8,5 @@ public interface PetDao {
     Pet findById(Long id);
     void update(Pet pet);
     void delete(Long id);
+    List<Pet> filtered();
 }

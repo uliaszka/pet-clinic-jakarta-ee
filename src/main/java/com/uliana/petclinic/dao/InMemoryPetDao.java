@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 
 @ApplicationScoped
@@ -60,4 +61,12 @@ public class InMemoryPetDao implements PetDao {
 
     @Override
     public void delete(Long id) { if(id!=null){pets.removeIf(pet ->id.equals(pet.getId()));}}
+
+    @Override
+    public List<Pet> filtered(){
+        return pets.stream()
+                .filter(pet -> pet.getOwnerName() == null || pet.getOwnerName().trim().isEmpty())
+                .collect(Collectors.toList());
+    }
 }
+
