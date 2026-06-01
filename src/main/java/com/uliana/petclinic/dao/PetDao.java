@@ -12,5 +12,7 @@ public interface PetDao {
     void update(Pet pet);
     void delete(Long id);
     List<Pet> filtered();
+
+    List<Pet> findNewestEntries();
 }
 

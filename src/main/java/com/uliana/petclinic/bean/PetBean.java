@@ -2,8 +2,9 @@ package com.uliana.petclinic.bean;
 
 import com.uliana.petclinic.dao.PetDao;
 import com.uliana.petclinic.model.Pet;
+import jakarta.ejb.EJB;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
+
 import jakarta.inject.Named;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ public class PetBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    @Inject
+    @EJB
     private PetDao petDao;
 
     private Pet pet = new Pet();

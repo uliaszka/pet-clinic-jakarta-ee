@@ -55,5 +55,14 @@ public class PetDaoBean implements PetDao {
     public List<Pet> filtered(){
         return em.createNamedQuery("Pet.filtered", Pet.class).getResultList();
     }
+
+    @Override
+     public List<Pet> findNewestEntries(){
+        return em.createQuery(
+                "SELECT p FROM Pet p ORDER BY p.createdAt DESC",
+                Pet.class
+        ).setMaxResults(5).getResultList();
+
+    }
 }
 
