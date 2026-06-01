@@ -7,7 +7,7 @@ import java.util.List;
 
 @Remote
 public interface PetStatisticsRemote {
-    int countPets();
+    long countPets();
     List<Pet> petsWithoutOwner();
     List<Pet> newestEntries();
 }

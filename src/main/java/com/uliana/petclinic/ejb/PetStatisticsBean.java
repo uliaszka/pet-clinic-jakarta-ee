@@ -14,8 +14,8 @@ public class PetStatisticsBean implements PetStatisticsRemote {
     private PetDao petDao;
 
     @Override
-    public int countPets() {
-        return petDao.findAll().size();
+    public long countPets() {
+        return petDao.countPets();
     }
 
     @Override

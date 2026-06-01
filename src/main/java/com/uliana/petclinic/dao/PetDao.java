@@ -14,5 +14,6 @@ public interface PetDao {
     List<Pet> filtered();
 
     List<Pet> findNewestEntries();
+    long countPets();
 }
 

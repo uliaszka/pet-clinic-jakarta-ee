@@ -64,5 +64,13 @@ public class PetDaoBean implements PetDao {
         ).setMaxResults(5).getResultList();
 
     }
+
+    @Override
+    public  long countPets(){
+        return em.createQuery(
+                "SELECT COUNT(p) FROM Pet p",
+                Long.class
+        ).getSingleResult();
+    }
 }
 
