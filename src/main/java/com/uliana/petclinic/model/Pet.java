@@ -1,19 +1,41 @@
 package com.uliana.petclinic.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import java.time.LocalDateTime;
+
+
+
 import java.io.Serializable;
 import java.time.LocalDate;
+
+@Entity
+@Table(name = "pets")
+@NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p ORDER BY p.id")
+@NamedQuery(name = "Pet.filtered", query = "SELECT p FROM Pet p WHERE p.ownerName IS NULL OR p.ownerName = '' ORDER BY p.id")
 
 public class Pet implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String species;
     private LocalDate birthDate;
     private String ownerName;
     private String notes;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
+
 
 
     public Pet(){};
@@ -76,7 +98,26 @@ public class Pet implements Serializable {
         this.notes=notes;
     }
 
-@Override
+
+    @PrePersist
+    public void prePersist(){
+        createdAt =LocalDateTime.now();
+        updateAt=LocalDateTime.now();
+    }
+    @PreUpdate
+    public void setUpdate(){
+        updateAt=LocalDateTime.now();
+    }
+
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
+    public LocalDateTime getUpdateAt(){
+        return updateAt;
+    }
+
+
+    @Override
     public String toString(){
         return "Pet{" +
                 "id=" + id +
