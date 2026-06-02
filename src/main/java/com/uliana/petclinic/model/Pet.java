@@ -34,7 +34,7 @@ public class Pet implements Serializable {
     private String ownerName;
     private String notes;
     private LocalDateTime createdAt;
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
 
 
@@ -102,18 +102,26 @@ public class Pet implements Serializable {
     @PrePersist
     public void prePersist(){
         createdAt =LocalDateTime.now();
-        updateAt=LocalDateTime.now();
+        updatedAt=LocalDateTime.now();
     }
     @PreUpdate
     public void setUpdate(){
-        updateAt=LocalDateTime.now();
+        updatedAt=LocalDateTime.now();
     }
 
     public LocalDateTime getCreatedAt(){
         return createdAt;
     }
-    public LocalDateTime getUpdateAt(){
-        return updateAt;
+    public LocalDateTime getUpdatedAt(){
+        return updatedAt;
+    }
+
+    public String getCreatedAtFormatted() {
+        return createdAt != null ? createdAt.toString().replace("T", " ").substring(0, 16) : "";
+    }
+
+    public String getUpdatedAtFormatted() {
+        return updatedAt != null ? updatedAt.toString().replace("T", " ").substring(0, 16) : "";
     }
 
 

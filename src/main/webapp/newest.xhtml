@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>Newest Pets</title>
+</h:head>
+
+<h:body>
+    <h1>Newest Pets</h1>
+
+    <h:form>
+        <h:dataTable value="#{petBean.newestPets}" var="pet" border="1">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{pet.id}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{pet.name}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Species</f:facet>
+                #{pet.species}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Owner</f:facet>
+                #{pet.ownerName}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Created At</f:facet>
+                #{pet.createdAtFormatted}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Updated At</f:facet>
+                #{pet.updatedAtFormatted}
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+    <br/>
+
+    <h:link value="Back to pet list" outcome="listView"/>
+    <br/>
+    <h:link value="Back to home" outcome="index"/>
+</h:body>
+</html>

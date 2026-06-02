@@ -62,6 +62,10 @@ public class PetBean implements Serializable {
          return petDao.filtered();
     }
 
+    public List<Pet> getNewestPets() {
+        return petDao.findNewestEntries();
+    }
+
     public Pet getPet() {return pet;}
     public void setPet(Pet pet) {this.pet = pet;}
     public Long getId() {return id;}
