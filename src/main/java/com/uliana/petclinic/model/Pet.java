@@ -1,19 +1,20 @@
 package com.uliana.petclinic.model;
 
+import com.uliana.petclinic.converter.LocalDateAttributeConverter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import java.time.LocalDateTime;
-
-
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pets")
@@ -22,7 +23,6 @@ import java.time.LocalDate;
 
 public class Pet implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,10 +30,20 @@ public class Pet implements Serializable {
     private Long id;
     private String name;
     private String species;
+
+    @Column(name = "birthdate")
+    @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate birthDate;
+
+    @Column(name = "ownername")
     private String ownerName;
+
     private String notes;
+
+    @Column(name = "createdat")
     private LocalDateTime createdAt;
+
+    @Column(name = "updatedat")
     private LocalDateTime updatedAt;
 
 
@@ -46,6 +56,13 @@ public class Pet implements Serializable {
         this.birthDate=birthDate;
         this.ownerName=ownerName;
         this.notes=notes;
+    }
+
+    public Pet(Long id, String name, String species, LocalDate birthDate, String ownerName,
+               String notes, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this(id, name, species, birthDate, ownerName, notes);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId(){
@@ -101,27 +118,45 @@ public class Pet implements Serializable {
 
     @PrePersist
     public void prePersist(){
-        createdAt =LocalDateTime.now();
-        updatedAt=LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        createdAt = now;
+        updatedAt = now;
     }
+
     @PreUpdate
     public void setUpdate(){
-        updatedAt=LocalDateTime.now();
+        if (createdAt == null) {
+            createdAt = updatedAt != null ? updatedAt : LocalDateTime.now();
+        }
+        updatedAt = LocalDateTime.now();
     }
 
     public LocalDateTime getCreatedAt(){
         return createdAt;
     }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getUpdatedAt(){
         return updatedAt;
     }
 
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public String getCreatedAtFormatted() {
-        return createdAt != null ? createdAt.toString().replace("T", " ").substring(0, 16) : "";
+        return formatDateTime(createdAt);
     }
 
     public String getUpdatedAtFormatted() {
-        return updatedAt != null ? updatedAt.toString().replace("T", " ").substring(0, 16) : "";
+        return formatDateTime(updatedAt);
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        return dateTime != null ? dateTime.toString().replace("T", " ").substring(0, 16) : "";
     }
 
 
