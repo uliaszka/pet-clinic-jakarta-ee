@@ -8,6 +8,7 @@ import jakarta.persistence.PersistenceContext;
 
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -22,6 +23,9 @@ public class PetDaoBean implements PetDao {
 
     @Override
     public void create(Pet pet) {
+        LocalDateTime now = LocalDateTime.now();
+        pet.setCreatedAt(now);
+        pet.setUpdatedAt(now);
         em.persist(pet);
     }
 
@@ -40,6 +44,10 @@ public class PetDaoBean implements PetDao {
 
     @Override
     public void update(Pet pet) {
+       if (pet.getCreatedAt() == null) {
+           pet.setCreatedAt(LocalDateTime.now());
+       }
+       pet.setUpdatedAt(LocalDateTime.now());
        em.merge(pet);
     }
 
@@ -59,7 +67,7 @@ public class PetDaoBean implements PetDao {
     @Override
      public List<Pet> findNewestEntries(){
         return em.createQuery(
-                "SELECT p FROM Pet p ORDER BY p.createdAt DESC",
+                "SELECT p FROM Pet p ORDER BY p.createdAt DESC NULLS LAST",
                 Pet.class
         ).setMaxResults(5).getResultList();
 
