@@ -6,18 +6,23 @@ import jakarta.jms.Message;
 import jakarta.jms.MessageListener;
 import jakarta.jms.TextMessage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/queue/PetVisitQueue"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "jakarta.jms.Queue")
 })
 public class VisitRequestMDB implements MessageListener {
 
+    private static final Logger LOGGER = Logger.getLogger(VisitRequestMDB.class.getName());
+
     @Override
     public void onMessage(Message message) {
         try {
             if (message instanceof TextMessage textMessage) {
                 String body = textMessage.getText();
-                System.out.println("Visit request received: " + body);
+                LOGGER.info("Visit request received: " + body);
 
                 String[] parts = body.split("\\|", -1);
                 if (
@@ -26,13 +31,13 @@ public class VisitRequestMDB implements MessageListener {
                                 || parts[1].isBlank()
                                 || parts[2].isBlank()
                 )  {
-                    System.out.println("Visit request failed: invalid data.");
+                    LOGGER.warning("Visit request failed: invalid data.");
                 } else {
-                    System.out.println("Visit request processed successfully for pet id " + parts[0]);
+                    LOGGER.info("Visit request processed successfully for pet id " + parts[0]);
                 }
             }
         } catch (Exception e) {
-            System.out.println("Visit request failed: " + e.getMessage());
+            LOGGER.log(Level.WARNING, "Visit request failed.", e);
         }
     }
 }

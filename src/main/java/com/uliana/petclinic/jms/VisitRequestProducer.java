@@ -6,6 +6,8 @@ import jakarta.jms.JMSContext;
 import jakarta.jms.JMSDestinationDefinition;
 import jakarta.jms.Queue;
 
+import java.util.logging.Logger;
+
 @JMSDestinationDefinition(
         name = "java:/jms/queue/PetVisitQueue",
         interfaceName = "jakarta.jms.Queue",
@@ -13,6 +15,8 @@ import jakarta.jms.Queue;
 )
 @Stateless
 public class VisitRequestProducer {
+
+    private static final Logger LOGGER = Logger.getLogger(VisitRequestProducer.class.getName());
 
     @Resource(lookup = "java:/jms/queue/PetVisitQueue")
     private Queue queue;
@@ -24,17 +28,6 @@ public class VisitRequestProducer {
         String message = petId + "|" + date + "|" + reason;
         context.createProducer().send(queue, message);
 
-        System.out.println(
-
-                "Visit request sent: petId="
-
-                        + petId
-
-                        + ", date="
-
-                        + date
-
-        );
-
+        LOGGER.info("Visit request sent: petId=" + petId + ", date=" + date);
     }
 }
