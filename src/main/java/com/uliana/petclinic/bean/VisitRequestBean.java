@@ -25,7 +25,7 @@ public class VisitRequestBean implements Serializable {
         petId = null;
         visitDate = null;
         reason = null;
-        return "listView.xhtml?faces-redirect=true";
+        return "pets.xhtml?faces-redirect=true";
     }
 
     public Long getPetId() { return petId; }

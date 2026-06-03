@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Pet Details</title>
+    <f:metadata>
+        <f:viewParam name="id" value="#{petBean.id}" />
+        <f:viewAction action="#{petBean.loadPet}" />
+    </f:metadata>
+</h:head>
+<h:body>
+    <h1>Pet details</h1>
+
+    <h:link outcome="pets" value="Back to list" />
+    <br/><br/>
+
+    <h:panelGrid columns="2" rendered="#{petBean.selectedPet ne null}">
+        <h:outputText value="Id:" />
+        <h:outputText value="#{petBean.selectedPet.id}" />
+
+        <h:outputText value="Name:" />
+        <h:outputText value="#{petBean.selectedPet.name}" />
+
+        <h:outputText value="Species:" />
+        <h:outputText value="#{petBean.selectedPet.species}" />
+
+        <h:outputText value="Birth date:" />
+        <h:outputText value="#{petBean.selectedPet.birthDate}" />
+
+        <h:outputText value="Owner name:" />
+        <h:outputText value="#{petBean.selectedPet.ownerName}" />
+
+        <h:outputText value="Notes:" />
+        <h:outputText value="#{petBean.selectedPet.notes}" />
+    </h:panelGrid>
+
+    <h:panelGroup rendered="#{petBean.selectedPet eq null}">
+        <p>Pet was not found.</p>
+    </h:panelGroup>
+</h:body>
+</html>

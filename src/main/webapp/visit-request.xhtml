@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Visit Request</title>
+</h:head>
+<h:body>
+    <h1>Schedule visit request</h1>
+
+    <h:link outcome="index" value="Home" />
+    <br/><br/>
+
+    <h:form>
+        <h:messages style="color:red;margin:8px;" />
+
+        <h:panelGrid columns="3">
+            <h:outputLabel for="petId" value="Pet id:" />
+            <h:inputText id="petId" value="#{visitRequestBean.petId}" label="Pet id" required="true" />
+            <h:message for="petId" style="color:red" />
+
+            <h:outputLabel for="visitDate" value="Visit date:" />
+            <h:inputText id="visitDate" value="#{visitRequestBean.visitDate}" label="Visit date" required="true" />
+            <h:message for="visitDate" style="color:red" />
+
+            <h:outputLabel for="reason" value="Reason:" />
+            <h:inputTextarea id="reason" value="#{visitRequestBean.reason}" cols="40" rows="5" label="Reason" />
+            <h:message for="reason" style="color:red" />
+
+            <h:outputText value="" />
+            <h:commandButton value="Send request" action="#{visitRequestBean.send}" />
+            <h:outputText value="" />
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>

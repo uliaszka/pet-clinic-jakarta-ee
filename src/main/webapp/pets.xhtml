@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Pets</title>
+</h:head>
+<h:body>
+    <h1>Pets</h1>
+
+    <h:link outcome="index" value="Home" />
+    <br/><br/>
+    <h:link outcome="pet-create" value="Add new pet" />
+    <br/><br/>
+    <h:link value="View newest pets" outcome="newest-pets"/>
+    <br/><br/>
+
+ <h:form>
+    <h:dataTable value="#{petBean.pets}" var="p" border="1">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            <h:outputText value="#{p.name}" />
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Species</f:facet>
+            <h:outputText value="#{p.species}" />
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Birth date</f:facet>
+            <h:outputText value="#{p.birthDate}" />
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Owner</f:facet>
+            <h:outputText value="#{p.ownerName}" />
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Details</f:facet>
+                <h:link outcome="pet-details" value="View">
+                <f:param name="id" value="#{p.id}" />
+            </h:link>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Edit</f:facet>
+                <h:link outcome="pet-edit" value="Edit">
+                <f:param name="id" value="#{p.id}" />
+            </h:link>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Delete</f:facet>
+            <h:commandLink value="Delete" action="#{petBean.delete(p.id)}"
+                           onclick="return confirm('Are you sure?');" />
+        </h:column>
+
+    </h:dataTable>
+ </h:form>
+</h:body>
+</html>
