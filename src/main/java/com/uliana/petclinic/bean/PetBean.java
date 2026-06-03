@@ -47,7 +47,8 @@ public class PetBean implements Serializable {
             Pet existing = petDao.findById(id);
             if (existing != null) {
                 pet = new Pet(existing.getId(), existing.getName(), existing.getSpecies(),
-                        existing.getBirthDate(), existing.getOwnerName(), existing.getNotes());
+                        existing.getBirthDate(), existing.getOwnerName(), existing.getNotes(),
+                        existing.getCreatedAt(), existing.getUpdatedAt());
             }
         }
     }
